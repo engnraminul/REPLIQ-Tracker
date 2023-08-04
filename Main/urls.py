@@ -10,6 +10,7 @@ from django.contrib. staticfiles.urls import static
 
 urlpatterns = [
     path("/", include('Tracker.urls')),
+    path("login/", include('Login.urls')),
     path("admin/", admin.site.urls),
 
 ]
