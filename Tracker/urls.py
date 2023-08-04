@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 
+from Tracker import views
 
 
-app_name = 'Main'
 urlpatterns = [
+    path("", views.home, name= "home"),
     
 ]
