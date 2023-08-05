@@ -24,7 +24,17 @@
             <td>{{employee_data.employee.position}}</td>
             <td>
             {% for device_log in employee_data.checked_out_devices %}
-            {{ device_log.device.model }}
+            <ul>
+                <li>{{ device_log.device.model }}
+            {% if device_log.return_date %}
+                        ({{device_log.checkout_date}} to {{ device_log.return_date|date:"F d, Y" }})
+                    {% else %}
+
+
+                    ({{device_log.condition_on_checkout}} ( to {{device_log.checkout_date}} ))
+                    <a href="{% url 'Tracker:checkout_device_return' company_id=employee_data.employee.company.id device_id=device_log.device.id %}">Return</a></li>
+                    </ul>
+                    {% endif %}
             {% endfor %}</td>
 
             

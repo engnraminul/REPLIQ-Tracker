@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Company, Employee, Device, DeviceLog
 from .forms import CompanyForm, EmployeeForm, DeviceForm, CheckoutForm
+from django.utils import timezone
 
 def home(request):
     return render(request, "home.html")
@@ -128,7 +129,8 @@ def checkout_device(request, company_id, device_id):
             DeviceLog.objects.create(
                 device=device,
                 employee=employee,
-                condition_on_checkout=condition_on_checkout
+                condition_on_checkout=condition_on_checkout,
+                checkout_date = timezone.now(),
             )
             
             return redirect('Tracker:company_dashboard')
@@ -141,3 +143,19 @@ def checkout_device(request, company_id, device_id):
         'device': device,
     }
     return render(request, 'tracker/checkout_device.html', context)
+
+
+
+@login_required
+def checkout_device_return(request, company_id, device_id):
+    device_log = DeviceLog.objects.filter(device_id=device_id, return_date__isnull=True).first()
+    
+    if device_log:
+        device_log.return_date = timezone.now()
+        device_log.save()
+        
+        device = device_log.device
+        device.status = 'available'
+        device.save()
+    
+    return redirect('Tracker:company_dashboard')

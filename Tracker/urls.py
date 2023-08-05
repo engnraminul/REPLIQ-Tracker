@@ -11,6 +11,6 @@ urlpatterns = [
     path('company-dashboard/add-employee/<int:company_id>/', views.add_employee, name='add_employee'),
     path('company-dashboard/add-device/<int:company_id>/', views.add_device, name='add_device'),
     path('company-dashboard/<int:company_id>/checkout-device/<int:device_id>/', views.checkout_device, name='checkout_device'),
-    
+    path('company-dashboard/<int:company_id>/checkout-device-return/<int:device_id>/', views.checkout_device_return, name='checkout_device_return'),
     
 ]

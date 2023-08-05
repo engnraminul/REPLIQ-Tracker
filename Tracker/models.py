@@ -48,3 +48,6 @@ class DeviceLog(models.Model):
     return_date = models.DateTimeField(null=True, blank=True)
     condition_on_checkout = models.CharField(max_length=100)
     condition_on_return = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.device} - {self.employee}"
