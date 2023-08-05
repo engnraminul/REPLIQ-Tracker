@@ -52,3 +52,24 @@ def company_dashboard(request):
         #'devices': devices,
     }
     return render(request, 'tracker/company_dashboard.html', context)
+
+
+@login_required
+def add_employee(request, company_id):
+    company = get_object_or_404(Company, pk=company_id)
+    
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            employee = form.save(commit=False)
+            employee.company = company
+            employee.save()
+            return redirect('Tracker:company_dashboard')
+    else:
+        form = EmployeeForm()
+    
+    context = {
+        'form': form,
+        'company': company,
+    }
+    return render(request, 'tracker/add_employee.html', context)

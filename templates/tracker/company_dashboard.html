@@ -3,7 +3,7 @@
 {% block title %} Create New Account {% endblock %}
 
 {% block body %}
-<h1>{{ company.name }} Dashboard</h1>
+<h1>{{ company.name }} {{company.id}} Dashboard</h1>
     <h2>Employees:</h2>
     <ul>
         {% for employee in employees %}
@@ -16,5 +16,7 @@
             <li>{{ device.name }}</li>
         {% endfor %}
     </ul>
+
+    <li class="btn btn-info"><a href="{% url 'Tracker:add_employee' company_id=company.id %}">Add Employee</a></li>
 
 {% endblock %}

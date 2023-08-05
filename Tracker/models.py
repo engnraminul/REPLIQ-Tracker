@@ -15,6 +15,9 @@ class Employee(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+
 #Device Models
 class Device(models.Model):
     name = models.CharField(max_length=100)
