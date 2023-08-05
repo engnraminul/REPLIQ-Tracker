@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Add device {% endblock %}
+
+{% block body %}
+<h1>Add Device</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Device">
+    </form>
+    
+    <a href="{% url 'Tracker:company_dashboard' %}">Back to {{ company.name }} Dashboard</a>
+
+{% endblock %}

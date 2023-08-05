@@ -4,19 +4,68 @@
 
 {% block body %}
 <h1>{{ company.name }} {{company.id}} Dashboard</h1>
-    <h2>Employees:</h2>
-    <ul>
-        {% for employee in employees %}
-            <li>{{ employee.user.username }}</li>
-        {% endfor %}
-    </ul>
-    <h2>Devices:</h2>
-    <ul>
-        {% for device in devices %}
-            <li>{{ device.name }}</li>
-        {% endfor %}
-    </ul>
+    <h2>Employee List</h2>
 
-    <li class="btn btn-info"><a href="{% url 'Tracker:add_employee' company_id=company.id %}">Add Employee</a></li>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Serial</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Position</th>
+            <th scope="col">Device List</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+        {% for employee_data in employees_data %}
+          <tr>
+            <th scope="row">1</th>
+            <td>{{employee_data.employee.name}}</td>
+            <td>{{employee_data.employee.position}}</td>
+            <td>
+            {% for device_log in employee_data.checked_out_devices %}
+            {{ device_log.device.model }}
+            {% endfor %}</td>
+
+            
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <li class="btn btn-info"><a href="{% url 'Tracker:add_employee' company_id=company.id %}">Add Employee</a></li>
+
+      <h2>Device List</h2>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Serial</th>
+            <th scope="col">Model</th>
+            <th scope="col">Category</th>
+            <th scope="col">Status</th>
+            <th scope="col">Checkout</th>
+
+            
+          </tr>
+        </thead>
+        <tbody>
+        {% for device in devices %}
+          <tr>
+            <th scope="row">1</th>
+            <td>{{device.model}}</td>
+            <td>{{device.category}}</td>
+            <td>{{device.status}}</td>
+            <td><li class="btn btn-info"><a href="{% url 'Tracker:checkout_device' company_id=device.company_id device_id=device.id %}">Checkout</a></li></td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+
+
+
+    <li class="btn btn-info"><a href="{% url 'Tracker:add_device' company_id=company.id %}">Add Device</a></li>
 
 {% endblock %}

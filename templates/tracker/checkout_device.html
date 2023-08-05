@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Create New Account {% endblock %}
+
+{% block body %}
+<h1>Checkout Device</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="{{ form.employee_name.id_for_label }}">Employee Name:</label>
+    {{ form.employee_name }}
+    <br>
+    <label for="{{ form.checkout_condition.id_for_label }}">Device Condition:</label>
+    {{ form.checkout_condition }}
+    <br>
+    <input type="submit" value="Checkout Device" class="btn btn-primary">
+</form>
+    <a href="{% url 'Tracker:company_dashboard' %}" class="btn btn-secondary">Back to {{ company.name }} Dashboard</a>
+
+{% endblock %}
