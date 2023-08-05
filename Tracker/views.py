@@ -18,27 +18,10 @@ def create_company(request):
         form = CompanyForm(request.POST)
         if form.is_valid():
             form.save(user=request.user)
-            return HttpResponseRedirect(reverse('Tracker:home'))
-            #return redirect('company_dashboard', company_id=request.user.employee.company.id)
+            return redirect('Tracker:company_dashboard')
     else:
         form = CompanyForm()
     return render(request, 'tracker/create_company.html', {'form': form})
-
-
-
-
-@login_required
-def company_dashboard(request, company_id):
-    company = get_object_or_404(Company, pk=company_id)
-    employees = company.employee_set.all()
-    devices = company.device_set.all()
-    context = {
-        'company': company,
-        'employees': employees,
-        'devices': devices,
-    }
-    return render(request, 'tracker/company_dashboard.html', context)
-
 
 
 @login_required
@@ -109,6 +92,7 @@ def add_device(request, company_id):
     }
     return render(request, 'tracker/add_device.html', context)
 
+#Checkout Device for Emmployee
 @login_required
 def checkout_device(request, company_id, device_id):
     company = get_object_or_404(Company, pk=company_id)
@@ -151,11 +135,11 @@ def checkout_device_return(request, company_id, device_id):
     device_log = DeviceLog.objects.filter(device_id=device_id, return_date__isnull=True).first()
     
     if device_log:
-        device_log.return_date = timezone.now()
+        device_log.return_date = timezone.now() #set current date time
         device_log.save()
         
         device = device_log.device
-        device.status = 'available'
+        device.status = 'available' #device available after return checkout
         device.save()
     
     return redirect('Tracker:company_dashboard')

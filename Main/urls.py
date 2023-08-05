@@ -12,6 +12,7 @@ urlpatterns = [
     path("", include('Tracker.urls')),
     path("login/", include('Login.urls')),
     path("admin/", admin.site.urls),
+    path("api/", include('Api.urls')),
 
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
