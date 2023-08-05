@@ -6,6 +6,9 @@ class Company(models.Model):
     name = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+
 #Employee Models
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)

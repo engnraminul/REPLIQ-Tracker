@@ -10,10 +10,11 @@
           <a class="nav-link" href="">Employee</a>
   
         </li>
-  
-          <a class="nav-link" href="">Logout</a>
-  
-          <li class="nav-item">
+          <a class="nav-link" href="{% url 'Login:user_logout' %}">Logout</a>
+        <li class="nav-item">
+        </li>
+          <a class="nav-link" href="{% url 'Tracker:create-company' %}">Company</a>
+        <li class="nav-item">
         <a class="nav-link" href=""><img class="rounded-circle" width="30px" src="" alt=""> {{user.user_name}}</a>
         </li>
         {% else %}
