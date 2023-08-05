@@ -4,14 +4,12 @@ from django.contrib.auth.models import User
 #Company Models
 class Company(models.Model):
     name = models.CharField(max_length=100)
-    created = models.DateTimeField(auto_now_add=True)
-
+    created_by = models.OneToOneField(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 
 #Employee Models
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
     name = models.CharField(max_length=50, blank=False, null=False)
     position = models.CharField(max_length=50, blank=True, null=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)

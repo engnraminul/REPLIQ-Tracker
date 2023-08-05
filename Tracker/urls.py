@@ -6,6 +6,7 @@ from Tracker import views
 app_name = 'Tracker'
 urlpatterns = [
     path("", views.home, name= "home"),
-    path("Create-company/", views.create_company, name="create-company"),
+    path("Create-company/", views.create_company, name="create_company"),
+    path("company-dashboard/", views.company_dashboard, name="company_dashboard"),
     
 ]
